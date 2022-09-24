@@ -1,0 +1,285 @@
+package twitterBot;
+
+import java.util.Scanner;
+
+import twitter4j.GeoLocation;
+import twitter4j.Query;
+import twitter4j.QueryResult;
+import twitter4j.Status;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.conf.ConfigurationBuilder;
+
+public class LVL27
+{
+	public static void main (String []args)
+	{     
+		lvl27();
+	}
+
+	
+	public static void lvl27()
+	{
+		Scanner scanner = new Scanner(System.in);
+
+    //Enter your own Auth Code here
+		ConfigurationBuilder cb = new ConfigurationBuilder();
+		cb.setDebugEnabled(true)
+		  .setOAuthConsumerKey("")
+		  .setOAuthConsumerSecret("")
+		  .setOAuthAccessToken("")
+		  .setOAuthAccessTokenSecret("");
+		
+		
+		TwitterFactory tf = new TwitterFactory(cb.build());
+		Twitter twitter = tf.getInstance();
+		
+		
+		System.out.println("Please Enter your search QUERY");
+		String MyQuerySearch = scanner.next();
+		Query query = new Query(MyQuerySearch);
+		
+		
+		System.out.println("Pick Search Location: 1: USA -- 2: Ireland/England");
+		int MySearchLocation = scanner.nextInt();
+		
+		
+		//#1
+		if(MySearchLocation == 1)
+		{
+			GeoLocation locationUSA = new GeoLocation(47.5515, -101.0020);
+			query.setGeoCode(locationUSA, 2100, Query.MILES);
+	        query.setCount(50);
+	        query.setResultType(Query.RECENT);
+	        
+	        System.out.println("1: Mass Like.     2: Mass Follow.     3: Search Result		4:Follow&Like");
+	        int LocationChoice = scanner.nextInt();
+	        if(LocationChoice == 1)
+	        {
+	        	try
+	    	    {
+	    		    QueryResult result = twitter.search(query);
+	    			int counter = 1;
+	
+	    	    	for (Status status : result.getTweets()) 
+	    	    	{
+	    	    		System.out.println("#" + counter++ + ": " + status.getUser().getScreenName() + ":\n" + status.getText() +"\n");	    		
+	    	    		    		
+	    	    		twitter.createFavorite(status.getId());
+	    	    		
+	    	    		System.out.println("End of Query");
+	    	    		Thread.sleep(8000);
+	    		    }
+	    	    }
+	        	catch (Exception e)
+	    	    { 
+	    	    	System.out.println(e.getMessage());
+	    	    	lvl27();
+	    	    }
+	        }	
+        	else if(LocationChoice == 2)
+        	{
+        		try
+    		    {
+    			    QueryResult result = twitter.search(query);
+    				int counter = 1;
+    	
+    		    	for (Status status : result.getTweets()) 
+    		    	{
+    		    		System.out.println("#" + counter++ + ": " + status.getUser().getScreenName() + ":\n" + status.getText() +"\n");	    		
+    		    		    		
+    		    		twitter.createFriendship(status.getUser().getScreenName());
+    		    		
+    		    		System.out.println("End of Query");
+    		    		Thread.sleep(8000);
+    			    }
+    		    }
+	    	    catch (Exception e)
+	    	    { 
+	    	    	System.out.println(e.getMessage());
+	    	    	lvl27();
+	    	    }
+	        }
+        	else if(LocationChoice == 3)
+        	{
+        		try
+    		    {
+    			    QueryResult result = twitter.search(query);
+    				int counter = 1;
+    	
+    		    	for (Status status : result.getTweets()) 
+    		    	{
+    		    		System.out.println("#" + counter++ + ": " + status.getUser().getScreenName() + ":\n" + status.getText() +"\n");	    		
+    		    		    		    		    		
+    		    		System.out.println("End of Query");
+    		    		Thread.sleep(8000);
+    			    }
+    		    }    
+	    	    catch (Exception e)
+	    	    { 
+	    	    	System.out.println(e.getMessage());
+	    	    	lvl27();
+	    	    }
+        	}
+        	else if(LocationChoice == 4)
+        	{
+        		try
+    		    {
+    			    QueryResult result = twitter.search(query);
+    				int counter = 1;
+    	
+    		    	for (Status status : result.getTweets()) 
+    		    	{
+    		    		System.out.println("#" + counter++ + ": " + status.getUser().getScreenName() + ":\n" + status.getText() +"\n");	    		
+    		    		
+	    	    		twitter.createFavorite(status.getId());
+    		    		twitter.createFriendship(status.getUser().getScreenName());
+    		    		
+    		    		System.out.println("End of Query");
+    		    		Thread.sleep(8000);
+    			    }
+    		    }
+	    	    catch (Exception e)
+	    	    { 
+	    	    	System.out.println(e.getMessage());
+	    	    	lvl27();
+	    	    }
+	        }
+	    }
+		
+		
+	    //#2:
+        else if (MySearchLocation == 2)
+        {
+        	GeoLocation locationIRE = new GeoLocation(53.2734, -7.77832031);
+			query.setGeoCode(locationIRE, 400, Query.MILES);
+	        query.setCount(50);
+	        
+	        System.out.println("1: Mass Like.     2: Mass Follow.     3: Search Result.		4:Follow&Like.");
+	        int LocationChoice = scanner.nextInt();
+	        if(LocationChoice == 1)
+	        {
+	        	try
+	    	    {
+	    		    QueryResult result = twitter.search(query);
+	    			int counter = 1;
+	
+	    	    	for (Status status : result.getTweets()) 
+	    	    	{
+	    	    		System.out.println("#" + counter++ + ": " + status.getUser().getScreenName() + ":\n" + status.getText() +"\n");	    		
+	    	    		    		
+	    	    		twitter.createFavorite(status.getId());
+	    	    		
+	    	    		System.out.println("End of Query");
+	    	    		Thread.sleep(8000);
+	    		    }
+	    	    }
+	        	catch (Exception e)
+	    	    { 
+	    	    	System.out.println(e.getMessage());
+	    	    	lvl27();
+	    	    }
+	        }	
+        	else if(LocationChoice == 2)
+        	{
+        		try
+    		    {
+    			    QueryResult result = twitter.search(query);
+    				int counter = 1;
+    	
+    		    	for (Status status : result.getTweets()) 
+    		    	{
+    		    		System.out.println("#" + counter++ + ": " + status.getUser().getScreenName() + ":\n" + status.getText() +"\n");	    		
+    		    		    		
+    		    		twitter.createFriendship(status.getUser().getScreenName());
+    		    		
+    		    		System.out.println("End of Query");
+    		    		Thread.sleep(8000);
+    			    }
+    		    }    
+	    	    catch (Exception e)
+	    	    { 
+	    	    	System.out.println(e.getMessage());
+	    	    	lvl27();
+	    	    }
+        		lvl27();
+	        }
+        	else if(LocationChoice == 3)
+        	{
+        		try
+    		    {
+    			    QueryResult result = twitter.search(query);
+    				int counter = 1;
+    	
+    		    	for (Status status : result.getTweets()) 
+    		    	{
+    		    		System.out.println("#" + counter++ + ": " + status.getUser().getScreenName() + ":\n" + status.getText() +"\n");	    		
+    		    		    		    		    		
+    		    		System.out.println("End of Query");
+    		    		Thread.sleep(8000);
+    			    }
+    		    }    
+	    	    catch (Exception e)
+	    	    { 
+	    	    	System.out.println(e.getMessage());
+	    	    	lvl27();
+	    	    }
+        	}
+        	else if(LocationChoice == 4)
+        	{
+        		try
+    		    {
+    			    QueryResult result = twitter.search(query);
+    				int counter = 1;
+    	
+    		    	for (Status status : result.getTweets()) 
+    		    	{
+    		    		System.out.println("#" + counter++ + ": " + status.getUser().getScreenName() + ":\n" + status.getText() +"\n");	    		
+    		    		
+	    	    		twitter.createFavorite(status.getId());
+    		    		twitter.createFriendship(status.getUser().getScreenName());
+    		    		
+    		    		System.out.println("End of Query");
+    		    		Thread.sleep(8000);
+    			    }
+    		    }
+	    	    catch (Exception e)
+	    	    { 
+	    	    	System.out.println(e.getMessage());
+	    	    	lvl27();
+	    	    }
+        		lvl27();
+        }
+
+        else
+        {
+        	System.out.println("Something Went Wrong");
+        	lvl27();
+        }
+	
+        }	
+	}
+}
+
+//Like a Tweet
+//twitter.createFavorite(status.getId());
+
+//Retweet a Tweet
+//String url = "https://twitter.com/" + status.getUser().getScreenName() + "/status/" + status.getId();
+//twitter.updateStatus("Comment: " + url);
+
+//AddFollower
+//twitter.createFriendship(status.getUser().getScreenName());
+
+//Delete Follower
+//twitter.destroyFriendship(status.getUser().getScreenName()); 		
+
+//Call a status.
+//String url = "https://twitter.com/" + status.getUser().getScreenName() + "/status/" + status.getId(); 	
+
+//Location for Ireland and England
+//GeoLocation location = new GeoLocation(53.2734, -7.77832031); 
+
+//Location being called.
+//query.setGeoCode(location, 328.293, Query.MILES);					
